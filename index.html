@@ -1,1 +1,43 @@
-blog
+<html lang="en"> 
+    <head> 
+        <title>Document</title> 
+    </head> 
+    <body> 
+        <img src="http://books.google.com/books/content?id=FzVjBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" id="bookCover">
+        <input type="text" id="bookName">
+        <button onClick="printName();" type="button" name="bookNameName">Hello</button>
+        <script>
+      var imageLink;
+
+  
+// Defining async function 
+async function getapi(bookName) { 
+    console.log("hello");
+    // Storing response 
+    const response = await fetch("https://www.googleapis.com/books/v1/volumes?q="+bookName); 
+    
+    // Storing data in form of JSON 
+    var data = await response.json(); 
+    // console.log(data); 
+    if (response) { 
+      imageLink = data["items"][0]["volumeInfo"]["imageLinks"]["thumbnail"];
+      console.log(imageLink);
+        // hideloader(); 
+    } 
+    // show(data); 
+} 
+// Calling that async function 
+// getapi(api_url); 
+
+
+async function printName() {
+  console.log(bookNameInput.value);
+  await getapi(bookNameInput.value); 
+  bookCoverImage.src = imageLink;
+}
+
+var bookNameInput = document.getElementById("bookName");
+var bookCoverImage = document.getElementById("bookCover");
+</script> 
+    </body> 
+</html> 
